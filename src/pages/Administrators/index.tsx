@@ -1,3 +1,4 @@
+import DataTable from '../../components/DataTable'
 import FilterTable from '../../components/FilterTable'
 import MenuSideBar from '../../components/MenuSideBar'
 
@@ -17,6 +18,8 @@ function Administrators() {
           idFoodStore={true}
           cnpj={false}
         />
+        
+        <DataTable/>
       </main>
     </div>
   )

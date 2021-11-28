@@ -1,0 +1,16 @@
+#data-table-wrapper {
+  width: 70vw !important;
+  height: 100% !important;
+
+  margin-bottom: 5vh;
+
+  border: 1px solid gray;
+}
+
+#data-table-wrapper button {
+  width: 40px !important;
+}
+
+#data-table-wrapper div {
+  color: black !important;
+}
