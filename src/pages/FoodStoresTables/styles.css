@@ -1,4 +1,10 @@
-#page-food-stores {
-  width: 100vw;
-  height: 100vh;
+#page-food-stores-tables {
+  display: flex;
+}
+
+#page-food-stores-tables main {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
