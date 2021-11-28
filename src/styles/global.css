@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  --primary-color: #4e3333;
+}
+
+body {
+  color: black;
+  background-color: #fff;
+}
+
+body, input, button, textarea, h1 {
+  font: 400 18px Roboto, sans-serif;
+}

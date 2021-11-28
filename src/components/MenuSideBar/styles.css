@@ -1,0 +1,89 @@
+.sideBar{
+  width: 20vw;
+  height: 100vh;
+
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+
+  border-right: 1px solid var(--primary-color);
+
+  position: relative;
+}
+
+.sideBar img {
+  margin-top: 5vh;
+
+  position: absolute;
+  top: 0;
+}
+
+.sideBar .content-sideBar {
+  width: 100%;
+
+  margin-top: 20vh;
+
+  position: absolute;
+  top: 0;
+}
+
+.sideBar .content-sideBar .item-sideBar {
+  display:flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+.sideBar .content-sideBar .item-sideBar h1 {
+  width: 100%;
+
+  padding: 10px 0 10px 20px;
+
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.sideBar .content-sideBar .item-sideBar p {
+  width: 100%;
+
+  text-decoration: none !important;
+
+  padding: 10px 0 10px 20px;
+
+  color: black;
+}
+
+.sideBar .content-sideBar .item-sideBar p:hover {
+  background: #a88787;
+}
+
+.sideBar footer {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sideBar footer .logout{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sideBar footer .logout button{
+  margin-bottom: 10vh;
+
+  width: 100px;
+
+  border-radius: 10px;
+
+  background-color: red;
+  color: white;
+
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 0;
+}
+
+.sideBar footer button:hover {
+  background: rgb(134, 2, 2);
+}
