@@ -1,0 +1,10 @@
+#page-users {
+  display: flex;
+}
+
+#page-users main {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5vh;
+}
