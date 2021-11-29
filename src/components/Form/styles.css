@@ -1,7 +1,7 @@
-#filter-table {
+#form-details {
   width: 70vw;
 
-  margin-top: 1vw;
+  margin: 1vw auto 1vw;
 
   border: 1px solid black;
   display:flex;
@@ -9,8 +9,9 @@
   flex-direction: column;
 }
 
-form.filter-form {
+form {
   width: 100%;
+  height: 100%;
 
   padding: 1vw;
 
@@ -19,7 +20,15 @@ form.filter-form {
   flex-direction: column;
 }
 
-form.filter-form fieldset {
+form fieldset {
+  height: 100%;
+
+  margin-top: 1vw;
+
+  border: none;
+}
+
+form fieldset .inputs{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 10px;
@@ -29,13 +38,13 @@ form.filter-form fieldset {
   border: none;
 }
 
-form.filter-form fieldset .input-block {
+form fieldset .input-block {
   display:flex;
   align-items: left;
   flex-direction: column;
 }
 
-form.filter-form fieldset .input-block input{
+form fieldset .input-block input{
   width: 20vw;
 
   margin-top: 8px;
@@ -43,21 +52,12 @@ form.filter-form fieldset .input-block input{
   padding: 1vh;
 }
 
-form.filter-form .filter-buttons {
+form .buttons {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-form.filter-form .filter-buttons .clean-filter{
-  margin-left: 180px;
-}
-
-form.filter-form .filter-buttons .clean-filter{
-  align-self: flex-end;
-  margin-top: 3vw;
-}
-
-form.filter-form button {
+form button {
   width: 20vw;
 
   border-radius: 10px;
@@ -68,6 +68,6 @@ form.filter-form button {
   cursor: pointer;
 }
 
-form.filter-form button:hover {
+form button:hover {
   background: #2c1d1d;
 }

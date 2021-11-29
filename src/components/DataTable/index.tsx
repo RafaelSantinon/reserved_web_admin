@@ -1,73 +1,216 @@
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridCellParams,
+  GridRowsProp
+} from '@mui/x-data-grid';
+import { EyeOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 import './styles.css';
 
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 150 },
-  {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'lastName',
-    headerName: 'Last name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    sortable: false,
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.getValue(params.id, 'firstName') || ''} ${
-        params.getValue(params.id, 'lastName') || ''
-      }`,
-  },
-  {
-    field: '',
-    headerName: '',
-    sortable: false,
-    width: 150,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.getValue(params.id, 'firstName') || ''} ${
-        params.getValue(params.id, 'lastName') || ''
-      }`,
+interface IProps {
+  type?: boolean;
+  name?: boolean;
+  email?: boolean;
+  cellphone?: boolean;
+  bornAt?: boolean;
+  description?: boolean;
+  cnpj?: boolean;
+  number?: boolean;
+  seats?: boolean;
+  status?: boolean;
+  totalAmount?: boolean;
+  createdAt?: boolean;
+  details?: boolean;
+  path?: string;
+  rows: GridRowsProp;
+  button?: boolean;
+}
+
+export default function DataTable (props: IProps) {
+  const getColumns = (props: IProps) => {
+    let columns: GridColDef[] = []
+
+    if (props.type) {
+      columns.push(
+        {
+          field: 'type',
+          headerName: 'Tipo',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.name) {
+      columns.push(
+        {
+          field: 'name',
+          headerName: 'Nome',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.email) {
+      columns.push(
+        {
+          field: 'email',
+          headerName: 'Email',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.cellphone) {
+      columns.push(
+        {
+          field: 'cellphone',
+          headerName: 'Celular',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.bornAt) {
+      columns.push(
+        {
+          field: 'bornAt',
+          headerName: 'Nascimento',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.description) {
+      columns.push(
+        {
+          field: 'description',
+          headerName: 'Descrição',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.cnpj) {
+      columns.push(
+        {
+          field: 'cnpj',
+          headerName: 'CNPJ',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.number) {
+      columns.push(
+        {
+          field: 'number',
+          headerName: 'Number',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.seats) {
+      columns.push(
+        {
+          field: 'seats',
+          headerName: 'Lugares',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.status) {
+      columns.push(
+        {
+          field: 'status',
+          headerName: 'Situação',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.totalAmount) {
+      columns.push(
+        {
+          field: 'totalAmount',
+          headerName: 'Total',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.createdAt) {
+      columns.push(
+        {
+          field: 'createdAt',
+          headerName: 'Criação',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
+    if (props.details) {
+      columns.push(
+        {
+          field: '',
+          headerName: 'Detalhes',
+          sortable: false,
+          width: 150,
+          align: 'center',
+          renderCell: (o: GridCellParams) => (
+            <div className="details">
+              <Link to={`${props.path}/details/${o.row.id}`}>
+                <button type="button">
+                  <EyeOutlined/>
+                </button>
+              </Link>
+            </div>
+          )
+        }
+      )
+    }
+
+    return columns
   }
-];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-
-export default function DataTable() {
   return (
-    <div id="data-table-wrapper" style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[5]}
-        disableSelectionOnClick
-        disableColumnMenu
-      />
+    <div id="data-table">
+
+
+      <div className="data-table-button">
+        {props.button && (
+          <Link to={`/${props.path}/create`}>
+            <button className="data-table-button-create">Criar</button>
+          </Link>
+        )}
+      </div>
+
+      <div className="data-table-wrapper" style={{ height: '88%', width: '100%' }}>
+        <DataGrid
+          rows={props.rows}
+          columns={getColumns(props)}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          disableSelectionOnClick
+          disableColumnMenu
+        />
+      </div>
     </div>
+
   );
 }
