@@ -6,7 +6,7 @@
   align-items: center;
   flex-direction: column;
 
-  border-right: 1px solid var(--primary-color);
+  border-right: 1px solid black;
 
   position: relative;
 }

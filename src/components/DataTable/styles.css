@@ -2,9 +2,9 @@
   width: 70vw !important;
   height: 100% !important;
 
-  margin-bottom: 5vh;
+  margin-bottom: 1vh;
 
-  border: 1px solid gray;
+  border: 1px solid black;
 }
 
 #data-table-wrapper button {
@@ -13,4 +13,29 @@
 
 #data-table-wrapper div {
   color: black !important;
+}
+
+#data-table-wrapper .details {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+
+  margin-bottom: 2vh;
+}
+
+#data-table-wrapper .details button {
+  width: 6vw !important;
+
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: var(--primary-color);
+  color: #fff;
+
+  cursor: pointer;
+}
+
+#data-table-wrapper .details button:hover {
+  background: #2c1d1d;
 }

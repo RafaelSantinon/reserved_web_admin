@@ -55,6 +55,8 @@ export default function FilterTable(props: IFilterTable) {
         </fieldset>
         
         <div className="filter-buttons">
+          <p></p>
+          
           <Link 
             className="clean-filter"
             to={`/${props.origin}`}

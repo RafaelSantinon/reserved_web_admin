@@ -1,3 +1,4 @@
+import { createContext, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
@@ -8,25 +9,35 @@ import FoodStores from './pages/FoodStores';
 import FoodStoresTables from './pages/FoodStoresTables';
 import Menus from './pages/Menus';
 
+export const AuthContext = createContext({} as any )
 
 function Routes() {
+  const [auth, setAuth] = useState();
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Login} />
+        <AuthContext.Provider value={{auth, setAuth}}>
+          <Route path="/" exact component={Login} />
 
-        <Route path="/administrators" component={Administrators} />
+          <Route path="/administrators" exact component={Administrators} />
+          <Route path="/administrators/details/:id" component={Administrators} />
 
-        <Route path="/checkouts" component={Checkouts} />
+          <Route path="/checkouts" exact component={Checkouts} />
+          <Route path="/checkouts/details/:id" component={Checkouts} />
 
-        <Route path="/clients" component={Clients} />
+          <Route path="/clients" component={Clients} />
+          <Route path="/clients/details/:id" component={Clients} />
 
-        <Route path="/food-stores" component={FoodStores} />
+          <Route path="/food-stores" exact component={FoodStores} />
+          <Route path="/food-stores/details/:id" component={FoodStores} />
 
-        <Route path="/food-stores-tables" component={FoodStoresTables} />
+          <Route path="/food-stores-tables" exact component={FoodStoresTables} />
+          <Route path="/food-stores-tables/details/:id" component={FoodStoresTables} />
 
-        <Route path="/menus" component={Menus} />
-
+          <Route path="/menus" exact component={Menus} />
+          <Route path="/menus/details/:id" component={Menus} />
+        </AuthContext.Provider>
       </Switch>
     </BrowserRouter>
   );

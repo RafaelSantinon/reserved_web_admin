@@ -1,9 +1,9 @@
 #filter-table {
   width: 70vw;
 
-  margin-top: 2vw;
+  margin-top: 1vw;
 
-  border: 1px solid var(--primary-color);
+  border: 1px solid black;
   display:flex;
   align-items: center;
   flex-direction: column;
@@ -12,7 +12,7 @@
 form.filter-form {
   width: 100%;
 
-  padding: 2vw;
+  padding: 1vw;
 
   display:flex;
   align-items: left;
@@ -44,15 +44,17 @@ form.filter-form fieldset .input-block input{
 }
 
 form.filter-form .filter-buttons {
-  display:flex;
-
-  margin-top: 1vw;
-
-  justify-content: space-between;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 form.filter-form .filter-buttons .clean-filter{
-  margin-top: 2vw;
+  margin-left: 180px;
+}
+
+form.filter-form .filter-buttons .clean-filter{
+  align-self: flex-end;
+  margin-top: 3vw;
 }
 
 form.filter-form button {
