@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import DataTable from '../../components/DataTable'
@@ -9,12 +9,12 @@ import api from '../../services/api';
 
 import './styles.css';
 
-import { AuthContext } from '../../routes'
+import { AuthContext, RowsFilterContext } from '../../routes'
 
 function Menus() {
   const history = useHistory();
   const { auth } = useContext(AuthContext);
-  const [ rows, setRows ] = useState()
+  const { rowsFilter, setRowsFilter } = useContext(RowsFilterContext);
 
   useEffect(() => {
     api.get('menu', {
@@ -23,12 +23,12 @@ function Menus() {
       }
     }).then(response => {
       
-      setRows(response.data.rows)
+      setRowsFilter(response.data.rows)
     }).catch(err => {
 
       if (err.status === 401) history.push('/');
     });
-  }, [auth, history])
+  }, [auth, history, setRowsFilter])
 
   return (
     <div id="page-menus">
@@ -42,6 +42,7 @@ function Menus() {
           type={true}
           idFoodStore={true}
           cnpj={false}
+          baseUrl={'menu'}
         />
 
         <DataTable
@@ -50,7 +51,7 @@ function Menus() {
           createdAt={true}
           details={true}
           detailsPath={'menus/details'}
-          rows={rows as any}
+          rows={rowsFilter as any}
         />
       </main>
     </div>

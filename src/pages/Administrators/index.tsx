@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import DataTable from '../../components/DataTable'
@@ -9,12 +9,12 @@ import api from '../../services/api';
 
 import './styles.css';
 
-import { AuthContext } from '../../routes'
+import { AuthContext, RowsFilterContext } from '../../routes'
 
 function Administrators() {
   const history = useHistory();
   const { auth } = useContext(AuthContext);
-  const [ rows, setRows ] = useState()
+  const { rowsFilter, setRowsFilter } = useContext(RowsFilterContext);
 
   useEffect(() => {
     api.get('user?type=1,2,3', {
@@ -23,13 +23,13 @@ function Administrators() {
       }
     }).then(response => {
       
-      setRows(response.data.rows)
+      setRowsFilter(response.data.rows)
     }).catch(err => {
     console.log('err :', err);
 
       if (err.status === 401) history.push('/');
     });
-  }, [auth, history])
+  }, [auth, history, setRowsFilter])
 
   return (
     <div id="page-users">
@@ -40,20 +40,19 @@ function Administrators() {
           origin={'administrators'}
           name={true}
           email={true}
-          type={true}
           idFoodStore={true}
           cnpj={false}
+          baseUrl={'user?type=1,2,3'}
         />
         
         <DataTable
           name={true}
           email={true}
-          type={true}
           status={true}
           createdAt={true}
           details={true}
           detailsPath={'administrators/details'}
-          rows={rows as any}
+          rows={rowsFilter as any}
         />
       </main>
     </div>

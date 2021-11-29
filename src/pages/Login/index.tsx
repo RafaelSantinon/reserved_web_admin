@@ -11,7 +11,7 @@ import { AuthContext } from '../../routes'
 
 function Login() {
   const history = useHistory();
-  const { auth, setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +25,6 @@ function Login() {
     }).then(response => {
       setAuth(response.data);
 
-      console.log('auth :', auth);
       history.push('/food-stores');
     }).catch(err => {
     });

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import DataTable from '../../components/DataTable'
@@ -9,12 +9,12 @@ import api from '../../services/api';
 
 import './styles.css';
 
-import { AuthContext } from '../../routes'
+import { AuthContext, RowsFilterContext } from '../../routes'
 
 function FoodStoresTables() {
   const history = useHistory();
   const { auth } = useContext(AuthContext);
-  const [ rows, setRows ] = useState()
+  const { rowsFilter, setRowsFilter } = useContext(RowsFilterContext);
 
   useEffect(() => {
     api.get('food-store-table', {
@@ -23,12 +23,12 @@ function FoodStoresTables() {
       }
     }).then(response => {
       
-      setRows(response.data.rows)
+      setRowsFilter(response.data.rows)
     }).catch(err => {
 
       if (err.status === 401) history.push('/');
     });
-  }, [auth, history])
+  }, [auth, history, setRowsFilter])
 
   return (
     <div id="page-food-stores-tables">
@@ -42,6 +42,7 @@ function FoodStoresTables() {
           type={false}
           idFoodStore={true}
           cnpj={false}
+          baseUrl={'food-store-table'}
         />
 
         <DataTable
@@ -51,7 +52,7 @@ function FoodStoresTables() {
           createdAt={true}
           details={true}
           detailsPath={'food-stores-tables/details'}
-          rows={rows as any}
+          rows={rowsFilter as any}
         />
       </main>
     </div>
