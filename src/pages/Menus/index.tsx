@@ -43,7 +43,7 @@ function Menus() {
           type={true}
           idFoodStore={true}
           cnpj={false}
-          baseUrl={'menu'}
+          baseUrl={'menu?'}
         />
 
         <DataTable

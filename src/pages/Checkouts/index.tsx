@@ -43,7 +43,7 @@ function Checkouts() {
           type={true}
           idFoodStore={true}
           cnpj={true}
-          baseUrl={'checkout'}
+          baseUrl={'checkout?'}
         />
                 
         <DataTable

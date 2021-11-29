@@ -12,10 +12,13 @@ import Clients from './pages/Clients';
 import ClientsForm from './pages/ClientsForm';
 
 import FoodStores from './pages/FoodStores';
+import FoodStoresForm from './pages/FoodStoresForm';
 
 import FoodStoresTables from './pages/FoodStoresTables';
+import FoodStoresTablesForm from './pages/FooStoresTablesForm';
 
 import Menus from './pages/Menus';
+import MenusForm from './pages/MenusForm';
 
 export const AuthContext = createContext({} as any )
 export const RowsFilterContext = createContext({} as any )
@@ -42,16 +45,16 @@ function Routes() {
             <Route path="/clients/details/:id" component={ClientsForm} />
 
             <Route path="/food-stores" exact component={FoodStores} />
-            <Route path="/food-stores/details/:id" component={FoodStores} />
-            <Route path="/food-stores/create" component={FoodStores} />
+            <Route path="/food-stores/details/:id" component={FoodStoresForm} />
+            <Route path="/food-stores/create" component={FoodStoresForm} />
 
             <Route path="/food-stores-tables" exact component={FoodStoresTables} />
-            <Route path="/food-stores-tables/details/:id" component={FoodStoresTables} />
-            <Route path="/food-stores-tables/create" component={FoodStoresTables} />
+            <Route path="/food-stores-tables/details/:id" component={FoodStoresTablesForm} />
+            <Route path="/food-stores-tables/create" component={FoodStoresTablesForm} />
 
             <Route path="/menus" exact component={Menus} />
-            <Route path="/menus/details/:id" component={Menus} />
-            <Route path="/menus/create" component={Menus} />
+            <Route path="/menus/details/:id" component={MenusForm} />
+            <Route path="/menus/create" component={MenusForm} />
           </RowsFilterContext.Provider>
         </AuthContext.Provider>
       </Switch>

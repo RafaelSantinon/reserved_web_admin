@@ -43,7 +43,7 @@ function FoodStoresTables() {
           type={false}
           idFoodStore={true}
           cnpj={false}
-          baseUrl={'food-store-table'}
+          baseUrl={'food-store-table?'}
         />
 
         <DataTable

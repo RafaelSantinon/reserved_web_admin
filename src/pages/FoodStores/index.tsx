@@ -42,7 +42,7 @@ function FoodStores() {
           email={false}
           type={false}
           cnpj={true}
-          baseUrl={'food-store'}
+          baseUrl={'food-store?'}
         />
 
         <DataTable

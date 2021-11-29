@@ -58,7 +58,7 @@ export default function FilterTable(props: IFilterTable) {
     }).then(response => {
       setRowsFilter(response.data.rows);
 
-      history.push('/administrators');
+      history.push(`${props.origin}`);
     }).catch(err => {
       if (err.status === 401) history.push('/');
 
