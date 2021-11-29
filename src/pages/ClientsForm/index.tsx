@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 
@@ -17,15 +17,13 @@ interface IFormValues {
   email?: string;
   cellphone?: string;
   bornAt?: string;
-  password?: string;
-  type?: string;
 }
 
 interface IFormParams {
   id?: string;
 }
 
-function AdministratorsForm() {
+function ClientsForm() {
   const params = useParams<IFormParams>();
   const history = useHistory();
   const { auth } = useContext(AuthContext);
@@ -34,8 +32,6 @@ function AdministratorsForm() {
     email:  '',
     cellphone:  '',
     bornAt:  '',
-    password:  '',
-    type:  '',
   });
 
   useEffect(() => {
@@ -50,53 +46,12 @@ function AdministratorsForm() {
           if (response.data.email) setValues({email: response.data.email})
           if (response.data.cellphone) setValues({cellphone: response.data.cellphone})
           if (response.data.bornAt) setValues({bornAt: response.data.bornAt})
-          if (response.data.type) setValues({type: response.data.type})
         }
       ).catch(err => {
         if (err.status === 401) history.push('/');
       });
     }
   },[params.id, history, auth])
-
-  async function onSubmitForm(event: FormEvent) {
-    event.preventDefault();
-
-    if (params.id) {
-      api.put(`user/${params.id}`, {
-        "name": values.name,
-        "email": values.email,
-        "cellphone": values.cellphone,
-      },
-      {  
-        headers: {
-          'Authorization': `Bearer ${auth}`
-        }
-      }
-      ).then(response => {
-  
-        history.push('/administrators');
-      }).catch(err => {
-        if (err.status === 401) history.push('/');
-      });
-    } else {
-      api.post('user', {
-        headers: {
-          'Authorization': `Bearer ${auth}`
-        },
-        "type": values.type,
-        "name": values.name,
-        "email": values.email,
-        "cellphone": values.cellphone,
-        "bornAt": values.bornAt,
-        "password": values.password
-      }).then(response => {
-  
-        history.push('/administrators');
-      }).catch(err => {
-        if (err.status === 401) history.push('/');
-      });
-    }
-  }
 
   const onFormChange = (key: string, value: string) => {
     const updatedForm = {
@@ -113,14 +68,8 @@ function AdministratorsForm() {
 
       <main>
         <div id="form-details">
-        <form onSubmit={onSubmitForm}>
-          <h3>
-            {
-              params.id ? 
-              'Edição de administrador' :
-              'Criação de administradores'
-            }
-          </h3>
+        <form>
+          <h3>Detalhes do usuário</h3>
 
           <fieldset>
             <div className="inputs">
@@ -130,6 +79,7 @@ function AdministratorsForm() {
                   type="text"
                   onChange={e => onFormChange('name', e.target.value)}
                   value={values.name}
+                  disabled={params.id ? true : false}
                 />
               </div>
 
@@ -139,6 +89,7 @@ function AdministratorsForm() {
                   type="text"
                   onChange={e => onFormChange('email', e.target.value)}
                   value={values.email}
+                  disabled={params.id ? true : false}
                 />
               </div>
 
@@ -148,6 +99,7 @@ function AdministratorsForm() {
                   type="text"
                   onChange={e => onFormChange('cellphone', e.target.value)}
                   value={values.cellphone}
+                  disabled={params.id ? true : false}
                 />
               </div>
 
@@ -160,33 +112,10 @@ function AdministratorsForm() {
                   disabled={params.id ? true : false}
                 />
               </div>
-
-              <div className="input-block">
-                <label htmlFor="type">Tipo</label>
-                <input
-                  type="text"
-                  onChange={e => onFormChange('type', e.target.value)}
-                  value={values.type}
-                  disabled={params.id ? true : false}
-                />
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="password">Senha</label>
-                <input
-                  type="text"
-                  onChange={e => onFormChange('password', e.target.value)}
-                  value={values.password}
-                  disabled={params.id ? true : false}
-                />
-              </div>
             </div>
           </fieldset>
 
-          <div className="buttons">
-            <p></p>
-            <button type="button" onClick={history.goBack}>Voltar</button>
-            
+          <div className="buttons">            
             {/* <Link 
               className="clean-filter"
               to={`/${props.origin}`}
@@ -195,8 +124,9 @@ function AdministratorsForm() {
                   Limpar filtros
                 </p>
             </Link> */}
-
-            <button type="submit">{params.id ? 'Editar' : 'Criar'}</button>
+            <p></p>
+            <p></p>
+            <button type="button" onClick={history.goBack}>Voltar</button>
           </div>
         </form>
       </div>
@@ -205,4 +135,4 @@ function AdministratorsForm() {
   )
 }
 
-export default AdministratorsForm;
+export default ClientsForm;

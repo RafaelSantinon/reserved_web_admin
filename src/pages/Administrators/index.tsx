@@ -25,8 +25,9 @@ function Administrators() {
       
       setRowsFilter(response.data.rows)
     }).catch(err => {
-
       if (err.status === 401) history.push('/');
+
+      setRowsFilter([]);
     });
   }, [auth, history, setRowsFilter])
 

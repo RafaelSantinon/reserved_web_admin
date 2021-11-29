@@ -25,8 +25,9 @@ function Clients() {
       
       setRowsFilter(response.data.rows)
     }).catch(err => {
-
       if (err.status === 401) history.push('/');
+
+      setRowsFilter([]);
     });
   }, [auth, history, setRowsFilter])
 
@@ -52,7 +53,7 @@ function Clients() {
           status={true}
           createdAt={true}
           details={true}
-          path={'checkouts/details'}
+          path={'clients'}
           rows={rowsFilter as any}
         />
       </main>

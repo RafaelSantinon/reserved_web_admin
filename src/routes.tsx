@@ -2,12 +2,19 @@ import { createContext, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
+
 import Administrators from './pages/Administrators';
 import AdministratorsForm from './pages/AdministratorsForm';
+
 import Checkouts from './pages/Checkouts';
+
 import Clients from './pages/Clients';
+import ClientsForm from './pages/ClientsForm';
+
 import FoodStores from './pages/FoodStores';
+
 import FoodStoresTables from './pages/FoodStoresTables';
+
 import Menus from './pages/Menus';
 
 export const AuthContext = createContext({} as any )
@@ -31,8 +38,8 @@ function Routes() {
             <Route path="/checkouts" exact component={Checkouts} />
             <Route path="/checkouts/details/:id" component={Checkouts} />
 
-            <Route path="/clients" component={Clients} />
-            <Route path="/clients/details/:id" component={Clients} />
+            <Route path="/clients" exact component={Clients} />
+            <Route path="/clients/details/:id" component={ClientsForm} />
 
             <Route path="/food-stores" exact component={FoodStores} />
             <Route path="/food-stores/details/:id" component={FoodStores} />
