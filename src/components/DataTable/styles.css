@@ -1,4 +1,4 @@
-#data-table-wrapper {
+#data-table {
   width: 70vw !important;
   height: 100% !important;
 
@@ -7,15 +7,38 @@
   border: 1px solid black;
 }
 
-#data-table-wrapper button {
+#data-table .data-table-button {
+  width: 20vw;
+
+  margin-left: 46vw;
+
+  margin-bottom: 2vh;
+}
+
+#data-table .data-table-button button {
+  width: 20vw;
+
+  border-radius: 10px;
+
+  background-color: var(--primary-color);
+  color: #fff;
+
+  cursor: pointer;
+}
+
+#data-table .data-table-button button:hover {
+  background: #2c1d1d;
+}
+
+.data-table-wrapper button {
   width: 40px !important;
 }
 
-#data-table-wrapper div {
+.data-table-wrapper div {
   color: black !important;
 }
 
-#data-table-wrapper .details {
+.data-table-wrapper .details {
   display:flex;
   align-items: center;
   flex-direction: column;
@@ -23,7 +46,7 @@
   margin-bottom: 2vh;
 }
 
-#data-table-wrapper .details button {
+.data-table-wrapper .details button {
   width: 6vw !important;
 
   display:flex;
@@ -36,6 +59,6 @@
   cursor: pointer;
 }
 
-#data-table-wrapper .details button:hover {
+.data-table-wrapper .details button:hover {
   background: #2c1d1d;
 }

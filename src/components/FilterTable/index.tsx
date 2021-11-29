@@ -43,9 +43,6 @@ export default function FilterTable(props: IFilterTable) {
   async function onSubmitFilters(event: FormEvent) {
     event.preventDefault();
 
-    console.log(props)
-    console.log(values)
-
     let url: string = `${props.baseUrl}`
 
     if (values.name) url += `&name=${values.name}`

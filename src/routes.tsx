@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Administrators from './pages/Administrators';
+import AdministratorsForm from './pages/AdministratorsForm';
 import Checkouts from './pages/Checkouts';
 import Clients from './pages/Clients';
 import FoodStores from './pages/FoodStores';
@@ -24,7 +25,8 @@ function Routes() {
             <Route path="/" exact component={Login} />
 
             <Route path="/administrators" exact component={Administrators} />
-            <Route path="/administrators/details/:id" component={Administrators} />
+            <Route path="/administrators/details/:id" component={AdministratorsForm} />
+            <Route path="/administrators/create" component={AdministratorsForm} />
 
             <Route path="/checkouts" exact component={Checkouts} />
             <Route path="/checkouts/details/:id" component={Checkouts} />
@@ -34,12 +36,15 @@ function Routes() {
 
             <Route path="/food-stores" exact component={FoodStores} />
             <Route path="/food-stores/details/:id" component={FoodStores} />
+            <Route path="/food-stores/create" component={FoodStores} />
 
             <Route path="/food-stores-tables" exact component={FoodStoresTables} />
             <Route path="/food-stores-tables/details/:id" component={FoodStoresTables} />
+            <Route path="/food-stores-tables/create" component={FoodStoresTables} />
 
             <Route path="/menus" exact component={Menus} />
             <Route path="/menus/details/:id" component={Menus} />
+            <Route path="/menus/create" component={Menus} />
           </RowsFilterContext.Provider>
         </AuthContext.Provider>
       </Switch>

@@ -51,8 +51,9 @@ function FoodStores() {
           status={true}
           createdAt={true}
           details={true}
-          detailsPath={'food-stores/details'}
+          path={'food-stores'}
           rows={rowsFilter as any}
+          button={true}
         />        
       </main>
     </div>

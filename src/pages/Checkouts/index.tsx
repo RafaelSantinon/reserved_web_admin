@@ -50,7 +50,7 @@ function Checkouts() {
           totalAmount={true}
           createdAt={true}
           details={true}
-          detailsPath={'checkouts/details'}
+          path={'checkouts/details'}
           rows={rowsFilter as any}
         />
       </main>

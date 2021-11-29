@@ -50,8 +50,9 @@ function Menus() {
           status={true}
           createdAt={true}
           details={true}
-          detailsPath={'menus/details'}
+          path={'menus'}
           rows={rowsFilter as any}
+          button={true}
         />
       </main>
     </div>

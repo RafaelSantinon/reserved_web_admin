@@ -25,7 +25,6 @@ function Administrators() {
       
       setRowsFilter(response.data.rows)
     }).catch(err => {
-    console.log('err :', err);
 
       if (err.status === 401) history.push('/');
     });
@@ -49,10 +48,12 @@ function Administrators() {
           name={true}
           email={true}
           status={true}
+          type={true}
           createdAt={true}
           details={true}
-          detailsPath={'administrators/details'}
+          path={'administrators'}
           rows={rowsFilter as any}
+          button={true}
         />
       </main>
     </div>

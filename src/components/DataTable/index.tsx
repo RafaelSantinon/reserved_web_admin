@@ -23,8 +23,9 @@ interface IProps {
   totalAmount?: boolean;
   createdAt?: boolean;
   details?: boolean;
-  detailsPath?: string;
+  path?: string;
   rows: GridRowsProp;
+  button?: boolean;
 }
 
 export default function DataTable (props: IProps) {
@@ -173,7 +174,7 @@ export default function DataTable (props: IProps) {
           align: 'center',
           renderCell: (o: GridCellParams) => (
             <div className="details">
-              <Link to={`${props.detailsPath}/${o.row.id}`}>
+              <Link to={`${props.path}/details/${o.row.id}`}>
                 <button type="button">
                   <EyeOutlined/>
                 </button>
@@ -188,15 +189,28 @@ export default function DataTable (props: IProps) {
   }
 
   return (
-    <div id="data-table-wrapper" style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={props.rows}
-        columns={getColumns(props)}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        disableSelectionOnClick
-        disableColumnMenu
-      />
+    <div id="data-table">
+
+
+      <div className="data-table-button">
+        {props.button && (
+          <Link to={`/${props.path}/create`}>
+            <button className="data-table-button-create">Criar</button>
+          </Link>
+        )}
+      </div>
+
+      <div className="data-table-wrapper" style={{ height: '88%', width: '100%' }}>
+        <DataGrid
+          rows={props.rows}
+          columns={getColumns(props)}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          disableSelectionOnClick
+          disableColumnMenu
+        />
+      </div>
     </div>
+
   );
 }
