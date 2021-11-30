@@ -23,6 +23,12 @@ import MenusForm from './pages/MenusForm';
 
 import MenusItensForm from './pages/MenusItensForm';
 
+import Reserves from './pages/Reserves';
+import ReservesForm from './pages/ReservesForm';
+
+import Orders from './pages/Orders';
+import OrdersForm from './pages/OrdersForm';
+
 export const AuthContext = createContext({} as any);
 export const RowsFilterContext = createContext({} as any);
 export const MenuContext = createContext({} as any);
@@ -65,6 +71,13 @@ function Routes() {
               <Route path="/menu-itens/details/:id" component={MenusItensForm} />
               <Route path="/menu-itens/create" component={MenusItensForm} />
             </MenuContext.Provider>
+
+            <Route path="/reserves" exact component={Reserves} />
+            <Route path="/reserves/details/:id" component={ReservesForm} />
+
+            <Route path="/orders" exact component={Orders} />
+            <Route path="/orders/details/:id" component={OrdersForm} />
+            <Route path="/orders/create" component={OrdersForm} />
           </RowsFilterContext.Provider>
         </AuthContext.Provider>
       </Switch>

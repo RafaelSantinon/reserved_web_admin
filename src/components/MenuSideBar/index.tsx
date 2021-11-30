@@ -43,7 +43,7 @@ export default function MenuSideBar({ active }: IMenuSidebar) {
         </div>
 
         <div className="item-sideBar">
-          <h1>Estabelecimentos</h1>
+          <h1>Estabelecimento</h1>
 
           <Link 
             to="/food-stores"
@@ -78,6 +78,30 @@ export default function MenuSideBar({ active }: IMenuSidebar) {
             }>
               <p>
                 Mesas
+              </p>
+          </Link>
+
+          <Link
+            to="/reserves"
+            style={
+              active === 'reserves'
+              ? { textDecoration: 'none', backgroundColor: '#a88787'}
+              : { textDecoration: 'none'}
+            }>
+              <p>
+                Reservas
+              </p>
+          </Link>
+
+          <Link
+            to="/orders"
+            style={
+              active === 'orders'
+              ? { textDecoration: 'none', backgroundColor: '#a88787'}
+              : { textDecoration: 'none'}
+            }>
+              <p>
+                Comandas
               </p>
           </Link>
         </div>
