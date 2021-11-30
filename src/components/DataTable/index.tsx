@@ -26,6 +26,7 @@ interface IProps {
   path?: string;
   rows: GridRowsProp;
   button?: boolean;
+  price?: boolean;
 }
 
 export default function DataTable (props: IProps) {
@@ -153,6 +154,17 @@ export default function DataTable (props: IProps) {
       )
     }
 
+    if (props.price) {
+      columns.push(
+        {
+          field: 'price',
+          headerName: 'Preço',
+          width: 150,
+          editable: false,
+        }
+      )
+    }
+
     if (props.createdAt) {
       columns.push(
         {
@@ -174,7 +186,7 @@ export default function DataTable (props: IProps) {
           align: 'center',
           renderCell: (o: GridCellParams) => (
             <div className="details">
-              <Link to={`${props.path}/details/${o.row.id}`}>
+              <Link to={`/${props.path}/details/${o.row.id}`}>
                 <button type="button">
                   <EyeOutlined/>
                 </button>

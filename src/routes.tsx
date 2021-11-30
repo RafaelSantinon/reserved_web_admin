@@ -7,6 +7,7 @@ import Administrators from './pages/Administrators';
 import AdministratorsForm from './pages/AdministratorsForm';
 
 import Checkouts from './pages/Checkouts';
+import CheckoutsForm from './pages/CheckoutsForm';
 
 import Clients from './pages/Clients';
 import ClientsForm from './pages/ClientsForm';
@@ -20,12 +21,16 @@ import FoodStoresTablesForm from './pages/FooStoresTablesForm';
 import Menus from './pages/Menus';
 import MenusForm from './pages/MenusForm';
 
-export const AuthContext = createContext({} as any )
-export const RowsFilterContext = createContext({} as any )
+import MenusItensForm from './pages/MenusItensForm';
+
+export const AuthContext = createContext({} as any);
+export const RowsFilterContext = createContext({} as any);
+export const MenuContext = createContext({} as any);
 
 function Routes() {
   const [auth, setAuth] = useState();
   const [rowsFilter, setRowsFilter] = useState();
+  const [menu, setMenu] = useState();
 
   return (
     <BrowserRouter>
@@ -39,7 +44,7 @@ function Routes() {
             <Route path="/administrators/create" component={AdministratorsForm} />
 
             <Route path="/checkouts" exact component={Checkouts} />
-            <Route path="/checkouts/details/:id" component={Checkouts} />
+            <Route path="/checkouts/details/:id" component={CheckoutsForm} />
 
             <Route path="/clients" exact component={Clients} />
             <Route path="/clients/details/:id" component={ClientsForm} />
@@ -52,9 +57,14 @@ function Routes() {
             <Route path="/food-stores-tables/details/:id" component={FoodStoresTablesForm} />
             <Route path="/food-stores-tables/create" component={FoodStoresTablesForm} />
 
-            <Route path="/menus" exact component={Menus} />
-            <Route path="/menus/details/:id" component={MenusForm} />
-            <Route path="/menus/create" component={MenusForm} />
+            <MenuContext.Provider value={{menu, setMenu}}>
+              <Route path="/menus" exact component={Menus} />
+              <Route path="/menus/details/:id" component={MenusForm} />
+              <Route path="/menus/create" component={MenusForm} />
+
+              <Route path="/menu-itens/details/:id" component={MenusItensForm} />
+              <Route path="/menu-itens/create" component={MenusItensForm} />
+            </MenuContext.Provider>
           </RowsFilterContext.Provider>
         </AuthContext.Provider>
       </Switch>

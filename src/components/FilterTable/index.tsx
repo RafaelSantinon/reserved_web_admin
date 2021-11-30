@@ -16,6 +16,7 @@ interface IFilterTable {
   idFoodStore?: boolean;
   cnpj?: boolean;
   baseUrl?: string;
+  status?: boolean;
 }
 
 interface IFilterTableValues {
@@ -25,6 +26,7 @@ interface IFilterTableValues {
   type?: string;
   idFoodStore?: string;
   cnpj?: string;
+  status?: string;
 }
 
 export default function FilterTable(props: IFilterTable) {
@@ -37,6 +39,7 @@ export default function FilterTable(props: IFilterTable) {
     type:  '',
     idFoodStore:  '',
     cnpj:  '',
+    status: '',
   });
   const { setRowsFilter } = useContext(RowsFilterContext);
 
@@ -50,6 +53,7 @@ export default function FilterTable(props: IFilterTable) {
     if (values.type) url += `&type=${values.type}`
     if (values.idFoodStore) url += `&idFoodStore=${values.idFoodStore}`
     if (values.cnpj) url += `&cnpj=${values.cnpj}`
+    if (values.status) url += `&status=${values.status}`
 
     api.get(url, {
       headers: {
@@ -132,6 +136,17 @@ export default function FilterTable(props: IFilterTable) {
                 type="cnpj"
                 onChange={e => onFormChange('cnpj', e.target.value)}
                 value={values.cnpj}
+              />
+            </div>
+          )}
+
+          {props.status && (
+            <div className="input-block">
+              <label htmlFor="status">Situação</label>
+              <input
+                type="status"
+                onChange={e => onFormChange('status', e.target.value)}
+                value={values.status}
               />
             </div>
           )}

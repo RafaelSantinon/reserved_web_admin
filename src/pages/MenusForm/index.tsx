@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom';
 
 import api from '../../services/api';
 
-import './styles.css';
+import { AuthContext, RowsFilterContext, MenuContext } from '../../routes'
 
-import { AuthContext } from '../../routes'
-
+import DataTable from '../../components/DataTable'
 import MenuSideBar from '../../components/MenuSideBar'
 
 import './styles.css';
@@ -25,6 +24,8 @@ function MenusForm() {
   const params = useParams<IFormParams>();
   const history = useHistory();
   const { auth } = useContext(AuthContext);
+  const { rowsFilter, setRowsFilter } = useContext(RowsFilterContext);
+  const { setMenu } = useContext(MenuContext);
   const [values, setValues] = useState<IFormValues>({
     idFoodStore:  '',
     type:  ''
@@ -40,12 +41,28 @@ function MenusForm() {
         response => {
           if (response.data.idFoodStore) setValues({idFoodStore: response.data.idFoodStore})
           if (response.data.type) setValues({type: response.data.type})
+
+          setMenu(response.data.id)
         }
       ).catch(err => {
         if (err.status === 401) history.push('/');
       });
+
+      api.get(`menu-item?idMenu=${params.id}`, {
+        headers: {
+          'Authorization': `Bearer ${auth}`
+        },
+      }).then(
+        response => {
+          setRowsFilter(response.data.rows)
+        }
+      ).catch(err => {
+        setRowsFilter([])
+        
+        if (err.status === 401) history.push('/');
+      });
     }
-  },[params.id, history, auth])
+  },[params.id, history, auth, setRowsFilter, setMenu])
 
   async function onSubmitForm(event: FormEvent) {
     event.preventDefault();
@@ -82,7 +99,7 @@ function MenusForm() {
 
       <main>
         <div id="form-details">
-        <form onSubmit={onSubmitForm}>
+        <form className="form-menu-itens" onSubmit={onSubmitForm}>
           <h3>
             {
               params.id ? 
@@ -115,6 +132,20 @@ function MenusForm() {
 
             </div>
           </fieldset>
+
+          <div className="data-table">
+            <h3>Itens no Cardápio</h3>
+            <DataTable
+              name={true}
+              description={true}
+              price={true}
+              createdAt={true}
+              details={true}
+              path={'menu-itens'}
+              rows={rowsFilter as any}
+              button={true}
+            />
+          </div>
 
           <div className="buttons">
             <p></p>

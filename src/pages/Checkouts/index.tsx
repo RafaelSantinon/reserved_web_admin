@@ -39,10 +39,8 @@ function Checkouts() {
         <FilterTable 
           origin={'checkouts'}
           name={true}
-          email={true}
-          type={true}
           idFoodStore={true}
-          cnpj={true}
+          status={true}
           baseUrl={'checkout?'}
         />
                 
@@ -51,7 +49,7 @@ function Checkouts() {
           totalAmount={true}
           createdAt={true}
           details={true}
-          path={'checkouts/details'}
+          path={'checkouts'}
           rows={rowsFilter as any}
         />
       </main>
