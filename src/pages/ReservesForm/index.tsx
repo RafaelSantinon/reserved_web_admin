@@ -10,6 +10,8 @@ import { AuthContext } from '../../routes'
 
 import MenuSideBar from '../../components/MenuSideBar'
 
+import { CheckoutStatus } from '../../utils/enumerators'
+
 interface IFormValues {
   idUser?: string;
   idFoodStore?: string;
@@ -64,6 +66,36 @@ function ReservesForm() {
     setValues(updatedForm);
   }
 
+  const confirmReserved = () => {
+    api.put(`checkout/${params.id}`, {
+      status: CheckoutStatus.APPROVED
+    }, {
+      headers: {
+        'Authorization': `Bearer ${auth}`
+      },
+    }).then( response => {
+    }).catch(err => {
+      if (err.status === 401) history.push('/');
+    });
+
+    history.push('/reserves');
+  }
+
+  const cancelReserved = () => {
+    api.put(`checkout/${params.id}`, {
+      status: CheckoutStatus.REPROVED
+    }, {
+      headers: {
+        'Authorization': `Bearer ${auth}`
+      },
+    }).then( response => {
+    }).catch(err => {
+      if (err.status === 401) history.push('/');
+    });
+
+    history.push('/reserves');
+  }
+
   return (
     <div id="page-user-details">
       <MenuSideBar active={'reserves'}/>
@@ -73,7 +105,7 @@ function ReservesForm() {
         <form>
           <h3>Detalhes do usuário</h3>
 
-          <fieldset>
+          <fieldset style={{ height: '30%' }}>
             <div className="inputs">
               <div className="input-block">
                 <label htmlFor="idUser">Cliente</label>
@@ -128,7 +160,26 @@ function ReservesForm() {
             </div>
           </fieldset>
 
-          <div className="buttons">            
+          <h3>O que gostaria de fazer com a reserva?</h3>
+
+          <div className="buttons-confirm">
+            <div className="analysis-buttons">
+              <button 
+                onClick={confirmReserved}
+                style = {{ backgroundColor: 'green'}}
+              >
+                Confirmar
+              </button>
+              <button
+                onClick={cancelReserved}
+                style = {{ backgroundColor: 'red'}}
+              >
+                Cancelar  
+              </button>
+            </div>
+          </div>
+
+          <div className="buttons">          
             {/* <Link 
               className="clean-filter"
               to={`/${props.origin}`}

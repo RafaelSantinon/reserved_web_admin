@@ -32,7 +32,7 @@ form {
 }
 
 form fieldset {
-  height: 100%;
+  height: 30%;
 
   margin-top: 1vw;
 
@@ -61,6 +61,25 @@ form fieldset .input-block input{
   margin-top: 8px;
 
   padding: 1vh;
+}
+
+form .buttons-confirm {
+  height: 70%;
+}
+
+form .analysis-buttons {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  margin-top: 1vh;
+}
+
+form .buttons-confirm .analysis-buttons :first-child:hover {
+  background: rgb(0, 66, 0) !important;
+}
+
+form .buttons-confirm .analysis-buttons :last-child:hover {
+  background: rgb(134, 2, 2) !important;
 }
 
 form .buttons {

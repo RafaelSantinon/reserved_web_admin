@@ -210,9 +210,17 @@ export default function DataTable (props: IProps) {
             <button className="data-table-button-create">Criar</button>
           </Link>
         )}
+        {!props.button && (
+          <button
+            className="data-table-button-create"
+            style={{ backgroundColor: 'white', border: 'none', cursor: 'default' }}
+          >
+            teste
+          </button>
+        )}
       </div>
 
-      <div className="data-table-wrapper" style={{ height: '88%', width: '100%' }}>
+      <div className="data-table-wrapper" style={{ height: '86%', width: '100%' }}>
         <DataGrid
           rows={props.rows}
           columns={getColumns(props)}
