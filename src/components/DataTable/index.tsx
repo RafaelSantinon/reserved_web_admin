@@ -6,6 +6,7 @@ import {
 } from '@mui/x-data-grid';
 import { EyeOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { DateTime } from 'luxon';
 
 import './styles.css';
 
@@ -20,7 +21,7 @@ interface IProps {
   number?: boolean;
   seats?: boolean;
   status?: boolean;
-  totalAmount?: boolean;
+  table?: boolean;
   createdAt?: boolean;
   details?: boolean;
   path?: string;
@@ -30,6 +31,102 @@ interface IProps {
 }
 
 export default function DataTable (props: IProps) {
+  function getStatus(status: number){
+    let response = null;
+
+    switch(status){
+      case 1:
+        response = 'Liberado';
+        break;
+
+      case 2:
+        response = 'Bloqueado';
+        break;
+
+      case 3:
+        response = 'Reservado';
+        break;
+
+      case 4:
+        response = 'Pendente';
+        break;
+    }
+
+    return response;
+  }
+
+  function getCheckoutStatus(status: number){
+    let response = null;
+
+    switch(status){
+      case 1:
+        response = 'Pendente';
+        break;
+
+      case 2:
+        response = 'Aprovado';
+        break;
+
+      case 3:
+        response = 'Reprovado';
+        break;
+
+      case 4:
+        response = 'Finalizado';
+        break;
+    }
+
+    return response;
+  }
+
+  function getMenuType(type: number){
+    let response = null;
+
+    switch(type){
+      case 1:
+        response = 'Entradas';
+        break;
+
+      case 2:
+        response = 'Pranto principal';
+        break;
+
+      case 3:
+        response = 'Sobremesas';
+        break;
+
+      case 4:
+        response = 'Bebidas';
+        break;
+    }
+
+    return response;
+  }
+
+  function getAdminType(type: number){
+    let response = null;
+
+    switch(type){
+      case 1:
+        response = 'Plataforma';
+        break;
+
+      case 2:
+        response = 'Restaurante';
+        break;
+
+      case 3:
+        response = 'Reserva';
+        break;
+
+      case 4:
+        response = 'User';
+        break;
+    }
+
+    return response;
+  }
+
   const getColumns = (props: IProps) => {
     let columns: GridColDef[] = []
 
@@ -40,6 +137,9 @@ export default function DataTable (props: IProps) {
           headerName: 'Tipo',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            props.path === 'menus' ? getMenuType(o.row.type) : getAdminType(o.row.type)
+          )
         }
       )
     }
@@ -84,6 +184,9 @@ export default function DataTable (props: IProps) {
           headerName: 'Nascimento',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            DateTime.fromISO(o.row.bornAt).toFormat('dd/MM/yyyy')
+          )
         }
       )
     }
@@ -114,7 +217,7 @@ export default function DataTable (props: IProps) {
       columns.push(
         {
           field: 'number',
-          headerName: 'Number',
+          headerName: 'Número',
           width: 150,
           editable: false,
         }
@@ -139,17 +242,25 @@ export default function DataTable (props: IProps) {
           headerName: 'Situação',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            (props.path === 'reserves' || props.path === 'orders') ?
+            getCheckoutStatus(o.row.status) :
+            getStatus(o.row.status)
+          )
         }
       )
     }
 
-    if (props.totalAmount) {
+    if (props.table) {
       columns.push(
         {
-          field: 'totalAmount',
-          headerName: 'Total',
+          field: 'tableNumber',
+          headerName: 'Mesa',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            `${o.row?.foodStoreTable?.number}`
+          )
         }
       )
     }
@@ -161,6 +272,9 @@ export default function DataTable (props: IProps) {
           headerName: 'Preço',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            `R$ ${o.row.price}`
+          )
         }
       )
     }
@@ -172,6 +286,9 @@ export default function DataTable (props: IProps) {
           headerName: 'Criação',
           width: 150,
           editable: false,
+          renderCell: (o: GridCellParams) => (
+            DateTime.fromISO(o.row.createdAt).toFormat('dd/MM/yyyy t')
+          )
         }
       )
     }
@@ -203,11 +320,11 @@ export default function DataTable (props: IProps) {
   return (
     <div id="data-table">
 
-
+{console.log(props.rows)}
       <div className="data-table-button">
         {props.button && (
           <Link to={`/${props.path}/create`}>
-            <button className="data-table-button-create">Criar</button>
+            <button className="data-table-button-create">Adicionar</button>
           </Link>
         )}
         {!props.button && (

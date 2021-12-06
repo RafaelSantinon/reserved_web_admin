@@ -63,6 +63,18 @@ form fieldset .input-block input{
   padding: 1vh;
 }
 
+form .leaflet-container {
+  margin-top: 2vh;
+  margin-bottom: 40px;
+  border: 1px solid black;
+}
+
+
+form fieldset .map h3 {
+  margin-top: 4vh;
+}
+
+
 form .buttons {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;

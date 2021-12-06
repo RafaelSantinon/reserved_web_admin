@@ -46,7 +46,7 @@ function Checkouts() {
                 
         <DataTable
           status={true}
-          totalAmount={true}
+          table={true}
           createdAt={true}
           details={true}
           path={'checkouts'}

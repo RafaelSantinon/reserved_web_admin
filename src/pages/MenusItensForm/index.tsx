@@ -165,7 +165,7 @@ function MenusItensForm() {
                 </p>
             </Link> */}
 
-            <button type="submit">{params.id ? 'Editar' : 'Criar'}</button>
+            <button type="submit">{params.id ? 'Editar' : 'Adicionar'}</button>
           </div>
         </form>
       </div>

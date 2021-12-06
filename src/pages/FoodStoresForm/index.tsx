@@ -1,26 +1,37 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
+import { Map, Marker, TileLayer } from 'react-leaflet';
+import Leaflet, { LeafletMouseEvent } from 'leaflet';
 
 import api from '../../services/api';
 
 import './styles.css';
+import 'leaflet/dist/leaflet.css';
+import mapIconImg from "../../assets/images/marker.png";
 
 import { AuthContext } from '../../routes'
 
 import MenuSideBar from '../../components/MenuSideBar'
 
-import './styles.css';
-
 interface IFormValues {
   name?: string;
   description?: string;
   cnpj?: string;
+  openHours?: string;
+  image?: File;
+  latitude?: number;
+  longitude?: number;
 }
 
 interface IFormParams {
   id?: string;
 }
+
+const mapIcon = Leaflet.icon({
+  iconUrl: mapIconImg,
+  iconSize: [40, 40],
+})
 
 function FoodStoresForm() {
   const params = useParams<IFormParams>();
@@ -30,6 +41,10 @@ function FoodStoresForm() {
     name:  '',
     description:  '',
     cnpj:  '',
+    openHours:  '',
+    image: undefined,
+    latitude: 0,
+    longitude: 0,
   });
 
   useEffect(() => {
@@ -43,6 +58,9 @@ function FoodStoresForm() {
           if (response.data.name) setValues({name: response.data.name})
           if (response.data.description) setValues({description: response.data.description})
           if (response.data.cnpj) setValues({cnpj: response.data.cnpj})
+          if (response.data.openHours) setValues({openHours: response.data.openHours})
+          if (response.data.address.latitude) setValues({latitude: response.data.address.latitude})
+          if (response.data.address.longitude) setValues({longitude: response.data.address.longitude})
         }
       ).catch(err => {
         if (err.status === 401) history.push('/');
@@ -57,6 +75,7 @@ function FoodStoresForm() {
       api.put(`food-store/${params.id}`, {
         "name": values.name,
         "description": values.description,
+        "openHours": values.openHours,
       },
       {  
         headers: {
@@ -70,11 +89,17 @@ function FoodStoresForm() {
         if (err.status === 401) history.push('/');
       });
     } else {
-      api.post('food-store', {
-        "name": values.name,
-        "description": values.description,
-        "cnpj": values.cnpj,
-      },
+      const data = new FormData();
+
+      data.append('name', String(values.name));
+      data.append('description', String(values.description));
+      data.append('cnpj', String(values.cnpj));
+      data.append('openHours', String(values.openHours));
+      data.append('image', values.image as File);
+      data.append('latitude', String(values.latitude));
+      data.append('longitude', String(values.longitude));
+
+      api.post('food-store', data,
       {
         headers: {
           'Authorization': `Bearer ${auth}`
@@ -93,6 +118,33 @@ function FoodStoresForm() {
     const updatedForm = {
       ...values,
       [key]: value,
+    }
+
+    setValues(updatedForm);
+  }
+
+  function mapClick(event: LeafletMouseEvent) {
+    const { lat, lng } = event.latlng;
+
+    if(lat && lng) {
+      const updatedForm = {
+        ...values,
+        latitude: lat,
+        longitude: lng,
+      }
+  
+      setValues(updatedForm);
+    }
+  }
+
+  function uploadImage(event: ChangeEvent<HTMLInputElement>) {
+    if (!event.target.files) {
+      return;
+    }
+
+    const updatedForm = {
+      ...values,
+      image: event.target.files[0],
     }
 
     setValues(updatedForm);
@@ -142,6 +194,55 @@ function FoodStoresForm() {
                   disabled={params.id ? true : false}
                 />
               </div>
+
+              <div className="input-block">
+                <label htmlFor="openHours">Horário de funcionamento</label>
+                <input
+                  type="text"
+                  onChange={e => onFormChange('openHours', e.target.value)}
+                  value={values.openHours}
+                />
+              </div>
+
+              <div className="input-block">
+                <label htmlFor="openHours">Imagem</label>
+                <input
+                  type="file"
+                  onChange={uploadImage}
+                />
+              </div>
+            </div>
+
+            <div className="map">
+              <h3>
+              {
+                params.id ? 
+                'Localização' :
+                'Selecione a localização'
+              }
+              </h3>
+
+              <Map
+                center={[-22.907175,-47.0697116]}
+                style={{ width: '100%', height: 280 }}
+                zoom={15}
+                onClick={mapClick}
+              >
+                <TileLayer
+                  url={`https://a.tile.openstreetmap.org/{z}/{x}/{y}.png`}
+                />
+
+                { values.latitude !== 0 && (
+                  <Marker
+                    interactive={ params.id ? true : false}
+                    icon={mapIcon}
+                    position={[
+                      values.latitude ? values.latitude : 0,
+                      values.longitude ? values.longitude : 0
+                    ]} 
+                  />
+                )}
+              </Map>
             </div>
           </fieldset>
 

@@ -44,7 +44,7 @@ function Login() {
               value={email}
             />
             <input
-              type="text"
+              type="password"
               placeholder="Insira sua senha"
               onChange={e => setPassword(e.target.value)}
               value={password}
